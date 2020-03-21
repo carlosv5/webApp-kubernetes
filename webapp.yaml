@@ -52,7 +52,13 @@ spec:
            value: pass
         -  name: MYSQL_DATABASE
            value: test
-
+        volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            name: anuncios-storage
+      volumes:
+        - name: anuncios-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
 ---
 apiVersion: v1
 kind: Service
