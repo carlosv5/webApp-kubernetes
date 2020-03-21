@@ -3,4 +3,5 @@ echo $MINIKUBE_IP www.carlosvegagarci.com | sudo tee --append /etc/hosts > /dev/
 kubectl create -f 10g-volume.yaml
 kubectl create -f mysql-pvc.yaml
 kubectl create -f webapp.yaml
-minikube -p master service webapp
+#minikube -p master service webapp
+#Link http://www.carlosvegagarci.com/anuncios
