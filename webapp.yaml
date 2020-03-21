@@ -1,0 +1,85 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: carlosvegagarci-webapp
+  replicas: 2 # tells deployment to run 1 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: carlosvegagarci-webapp
+    spec:
+      containers:
+      - name: webapp
+        image: codeurjc/java-webapp-bbdd:v2
+        ports:
+        - containerPort: 5000
+        env:
+        -  name: MYSQL_ROOT_PASSWORD
+           value: pass
+        -  name: MYSQL_DATABASE
+           value: test
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: carlosvegagarci-db
+  replicas: 1 # tells deployment to run 1 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: carlosvegagarci-db
+    spec:
+      containers:
+      - name: db
+        image: mysql:5.6
+        ports:
+        - containerPort: 3306
+        env:
+        -  name: MYSQL_ROOT_PASSWORD
+           value: pass
+        -  name: MYSQL_DATABASE
+           value: test
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+  labels:
+    app: carlosvegagarci-webapp
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      name: webapp-port
+  selector:
+    app: carlosvegagarci-webapp
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: carlosvegagarci-db
+spec:
+  ports:
+    - port: 3306
+      name: db-port
+  selector:
+    app: carlosvegagarci-db
+  type: ClusterIP
+
