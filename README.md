@@ -3,6 +3,8 @@ Deployment of a Java WebApp with Kubernetes
 
 This repo contains two possible ways to deploy the advertisements WebApp, with Kubectl and with Helm
 
+![Deployment of the app](images/app.png)
+
 ## Steps to deploy the APP:
 
 Common previous steps:
