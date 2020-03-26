@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "webapp.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "webapp.name" . }}
+    helm.sh/chart: {{ include "webapp.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "webapp.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ template "webapp.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "webapp.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ template "webapp.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.images.webapp.repository }}:{{ .Values.images.webapp.tag }}"
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: {{ .Values.env.mysql_root_password }}
+          - name: MYSQL_DATABASE
+            value: {{ .Values.env.mysql_database }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{ if .Values.metrics.enabled }}
+          resources:
+  {{ toYaml .Values.resources | indent 11 }}
+          {{- end -}}
