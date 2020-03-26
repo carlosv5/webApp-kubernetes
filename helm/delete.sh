@@ -1,2 +1,2 @@
 #!/bin/bash
-helm delete --purge db webapp
+helm delete --purge webapp
