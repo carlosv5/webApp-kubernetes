@@ -7,7 +7,7 @@ metadata:
     helm.sh/chart: {{ include "webapp.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app: {{ template "webapp.name" . }}
+    app: {{ template "webapp.labels" }}
     chart: {{ template "webapp.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -21,5 +21,5 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "webapp.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app: {{ template "webapp.name" . }}
+    app: {{ template "webapp.labels" }}
     release: {{ .Release.Name }}

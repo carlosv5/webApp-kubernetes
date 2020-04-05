@@ -10,7 +10,7 @@ metadata:
     helm.sh/chart: {{ include "webapp.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app: {{ template "webapp.name" . }}
+    app: {{ template "webapp.labels" }}
     release: {{ .Release.Name }}
   {{- with .Values.ingress.annotations }}
   annotations:

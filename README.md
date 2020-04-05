@@ -8,10 +8,11 @@ This repo contains two possible ways to deploy the advertisements WebApp, with K
 ## Steps to deploy the APP:
 
 Common previous steps:
-* Run command to be able to translate www.carlosvegagarci.com domain name in Linux:
+* Run command to be able to translate www.myweb.com domain name in Linux:
 
 ~~~
-echo $MINIKUBE_IP www.carlosvegagarci.com | sudo tee --append /etc/hosts > /dev/null
+export MINIKUBE_IP=$(minikube ip)
+echo $MINIKUBE_IP www.myweb.com | sudo tee --append /etc/hosts > /dev/null
 ~~~
 
 * Create required folder /mnt/data in minikube node:
@@ -32,7 +33,7 @@ helm install webapp --name webapp
 ~~~
     
 ## The application is available in:
-* www.carlosvegagarci.com/anuncios
+* www.myweb.com/anuncios
 
 ## Steps to stop the APP
 * Options:

@@ -11,7 +11,7 @@ Expand the name of the chart.
 Define name of the labels
 */}}
 {{- define "db.label" -}}
-{{- printf "%s-%s" "carlosvegagarci" .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- default "labels-db" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*

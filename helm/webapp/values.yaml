@@ -15,8 +15,8 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
   hosts:
-    - host: www.carlosvegagarci.com
-      paths: [/anuncios(/|$)(.*)]
+    - host: www.myweb.com
+      paths: [/anuncios]
 
   tls: []
 

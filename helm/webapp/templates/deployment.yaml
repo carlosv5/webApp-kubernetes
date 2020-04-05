@@ -7,20 +7,21 @@ metadata:
     helm.sh/chart: {{ include "webapp.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: {{ template "webapp.labels" }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "webapp.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app: {{ template "webapp.name" . }}
+      app: {{ template "webapp.labels" }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "webapp.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-        app: {{ template "webapp.name" . }}
+        app: {{ template "webapp.labels" }}
         release: {{ .Release.Name }}
     spec:
       containers:

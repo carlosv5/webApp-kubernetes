@@ -8,12 +8,12 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: carlosvegagarci-webapp
+      app: webapp-webapp
   replicas: 2 # tells deployment to run 1 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: carlosvegagarci-webapp
+        app: webapp-webapp
     spec:
       containers:
       - name: webapp
@@ -35,12 +35,12 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: carlosvegagarci-db
+      app: webapp-db
   replicas: 1 # tells deployment to run 1 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: carlosvegagarci-db
+        app: webapp-db
     spec:
       containers:
       - name: db
@@ -65,14 +65,14 @@ kind: Service
 metadata:
   name: webapp
   labels:
-    app: carlosvegagarci-webapp
+    app: webapp-webapp
 spec:
   ports:
     - port: 8080
       protocol: TCP
       name: webapp-port
   selector:
-    app: carlosvegagarci-webapp
+    app: webapp-webapp
   type: NodePort
 ---
 apiVersion: v1
@@ -80,13 +80,13 @@ kind: Service
 metadata:
   name: db
   labels:
-    app: carlosvegagarci-db
+    app: webapp-db
 spec:
   ports:
     - port: 3306
       name: db-port
   selector:
-    app: carlosvegagarci-db
+    app: webapp-db
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1beta1
@@ -97,7 +97,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-  - host: www.carlosvegagarci.com
+  - host: www.myweb.com
     http:
       paths:
       - path: /anuncios(/|$)(.*)
